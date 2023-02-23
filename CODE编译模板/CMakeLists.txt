@@ -10,20 +10,15 @@ set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/workspace)
 set(CUDA_GEN_CODE "-gencode=arch=compute_86,code=sm_86")
 
 set(CUDA_DIR     "/usr/local/cuda-11.7")
-set(TENSORRT_DIR "/home/Downloads/TensorRT-8.4.1.5")
 
 find_package(CUDA REQUIRED)
-find_package(OpenCV)
 
 include_directories(
     ${PROJECT_SOURCE_DIR}/src
-    ${OpenCV_INCLUDE_DIRS}
     ${CUDA_DIR}/include
-    ${TENSORRT_DIR}/include
 )
 
 link_directories(
-    ${TENSORRT_DIR}/lib
     ${CUDA_DIR}/lib64
 )
 
@@ -34,10 +29,7 @@ file(GLOB_RECURSE cuda_srcs ${PROJECT_SOURCE_DIR}/src/*.cu)
 
 add_executable(pro ${cpp_srcs})
 
-target_link_libraries(pro nvinfer)
 target_link_libraries(pro cudart)
-target_link_libraries(pro ${OpenCV_LIBS})
-
 
 add_custom_target(
     run

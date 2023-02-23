@@ -5,8 +5,6 @@ srcdir    := src
 objdir    := objs
 stdcpp    := c++11
 cuda_home := /usr/local/cuda
-opencv_home   := /usr/local
-tensorrt_home := /home/Downloads/TensorRT-8.4.1.5
 cuda_arch := 
 nvcc      := $(cuda_home)/bin/nvcc -ccbin=$(cc)
 
@@ -24,21 +22,15 @@ cu_mk   := $(cu_objs:.cu.o=.cu.mk)
 
 # 定义opencv和cuda需要用到的库文件
 link_cuda      := cudart 
-link_opencv    := opencv_world 
-link_tensorRT  := nvinfer 
 link_sys       := stdc++ dl
-link_librarys  := $(link_cuda) $(link_tensorRT) $(link_sys) $(link_opencv)
+link_librarys  := $(link_cuda) $(link_sys)
 
 # 定义头文件路径
 include_paths := src              \
-    $(cuda_home)/include          \
-	$(tensorrt_home)/include      \
-	$(opencv_home)/include/opencv4
+    $(cuda_home)/include          
 
 # 定义库文件路径
-library_paths := $(cuda_home)/lib64  \
-			$(tensorrt_home)/lib     \
-			$(opencv_home)/lib
+library_paths := $(cuda_home)/lib64  
 
 # 把library path给拼接为一个字符串
 empty := 
